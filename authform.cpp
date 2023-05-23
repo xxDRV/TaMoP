@@ -108,7 +108,7 @@ void AuthForm::on_exit_button_clicked()
     out<<qint16(Data.size()-sizeof(qint16));
     socket->write(Data);
     //ui->lineEdit->clear();
-    /*
+
     for(int i=0;i<Sockets.size();i++){
         Sockets[i]->write(Data);
     }
