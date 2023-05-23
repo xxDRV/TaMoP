@@ -7,9 +7,6 @@
 
 void Auth_admin(QString str);
 
-
-
-
 QString authentication(QString login, QString pass, QString connection_id);
 
 
