@@ -1,6 +1,23 @@
 #include "server.h"
 #include "func.cpp"
 
+/**
+ * @brief Server::Server
+ * Здесь будет описание сервера
+ *
+ *
+ *
+ *
+ * Тут будет что-то еще...
+ *
+ *
+ *
+ *
+ *
+ *
+ * И еще что-то.
+ */
+
 Server::Server(){
     if(this->listen(QHostAddress::Any,2323)){
         qDebug()<<"Start";
