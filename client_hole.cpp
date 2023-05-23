@@ -24,21 +24,23 @@ Client_hole::Client_hole(){
 
 void Client_hole::SendToServer(QString str)
 {
-    /*
+    qDebug()<<str;
+
     Data.clear();
     QDataStream out(&Data,QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_DefaultCompiledVersion);
     out<<qint16(0)<<QTime::currentTime()<<str;
     out.device()->seek(0);
+    qDebug()<<Data.size()-sizeof(qint16);
     out<<qint16(Data.size()-sizeof(qint16));
-    */
+
     socket->write(str.toUtf8());
     //ui->lineEdit->clear();
-    /*
+
     for(int i=0;i<Sockets.size();i++){
         Sockets[i]->write(Data);
     }
-    */
+
 }
 void Client_hole::slotsReadyRead()
 {

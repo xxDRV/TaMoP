@@ -29,6 +29,7 @@ private:
     static Client_hole_destroyer destroyer;
     QTcpSocket* socket;
     qint16 nextBlockSize;
+    QByteArray Data;
 
 
 protected:
