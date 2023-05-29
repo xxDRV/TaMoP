@@ -12,6 +12,7 @@ CONFIG += debug
 SOURCES += \
     authform.cpp \
     client_hole.cpp \
+    func_client.cpp \
     main.cpp \
     mainwindow.cpp \
     taskform.cpp
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     authform.h \
     client_hole.h \
+    func_client.h \
     mainwindow.h \
     taskform.h
 
