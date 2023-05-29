@@ -10,20 +10,13 @@
 
 using namespace std;
 
-bool Auth_admin(QString str){
-    //str = "login&admin&password&qwerty&email&jeff9352397@gmail.com&";
-    QTextStream out(stdout);
-    QStringList str2 = str.split('&');
-    bool flag = true;
-    QString adm = "admin";
-    for (int i =1;i<4;i+=2){
-        if (str2[i]!=adm){
-            flag = false;
-            break;
-        }
-    }
-    return flag;
-}
+/**
+ * @brief authentication аутентификация
+ * @param login логин
+ * @param pass пароль
+ * @param connection_id id подключения.
+ * @return Возвращает результат аутентификации (успешно или нет).
+ */
 QString authentication(QString login, QString pass, QString connection_id)
 {
     QList<QString> query_list = {"SELECT * FROM Users WHERE login = :login and password = :password;",
@@ -47,7 +40,16 @@ QString authentication(QString login, QString pass, QString connection_id)
         return "auth+ok\r\n";
     }
 }
-
+/**
+ * @brief registration регистрация пользователя
+ * @param login логин
+ * @param pass пароль
+ * @param name имя
+ * @param last_name Фамилия
+ * @param patronymic_name Отчество
+ * @param role роль (ученик или учитель).
+ * @return Возвращает результат регистрации (успешно или нет).
+ */
 QString registration(QString login, QString pass, QString name, QString last_name, QString patronymic_name, QString role)
 {
     QList<QString> query_list = {"SELECT * FROM Users WHERE login = :login;",
@@ -97,12 +99,23 @@ QString registration(QString login, QString pass, QString name, QString last_nam
     }
     return "reg+ok\r\n";
 }
-
+/**
+ * @brief check_answer функция, которая проверяет отправлен ли ответ.
+ * @param ans ответ.
+ * @param num номер задания.
+ * @return правда.
+ */
 bool check_answer(QString ans, int num)
 {
     return true;
 }
-
+/**
+ * @brief check_task Проверяет задачи, решённые студентом.
+ * @param connection_id id подключения.
+ * @param task номер задачи.
+ * @param ans ответ.
+ * @return Возвращает результат проверки и данные пользователя.
+ */
 QString check_task(QString connection_id, QString task, QString ans)
 {
     QList<QString> query_list = {"SELECT * FROM Users WHERE connection_id = :connection_id;",
@@ -201,7 +214,11 @@ QString check_task(QString connection_id, QString task, QString ans)
     }
     return "chek+autherr\r\n";
 }
-
+/**
+ * @brief get_stat функция, отвечающая за получение статистики.
+ * @param connection_id id подключения.
+ * @return возвращает статистику, в зависимости от роли пользователя. Для учителя- статистика всех учеников. Для ученика- только его личная статистика.
+. */
 QString get_stat(QString connection_id)
 {
     QList<QString> query_list = {"SELECT role FROM Users WHERE connection_id = :connection_id;",
@@ -229,7 +246,10 @@ QString get_stat(QString connection_id)
     }
     return "stat+autherr\r\n";
 }
-
+/**
+ * @brief close_session отключение пользователя.
+ * @param connection_id id подключения.
+ */
 void close_session(QString connection_id)
 {
     QList<QString> query_list = {"UPDATE Users SET connection_id = NULL WHERE connection_id = :connection_id;",
@@ -237,19 +257,23 @@ void close_session(QString connection_id)
     };
     DataBase::Connect()->query_execute(query_list);
 }
-
+/**
+ * @brief parsing функция для сервера, которая отвечает за структурирование информации, поступающей на сервер.
+ * @param data данные, поступающие на сервер.
+ * @param connection_id id подключения.
+ * @return Возвращает информацию, поступающую на сервер, в удобном для восприятия виде.
+ */
 QString parsing(QString data, QString connection_id)
 {
-    QString clear_data = data.left(data.lastIndexOf("\xd"));
-    QList<QString> parametrs = clear_data.split("+");
+    QList<QString> parametrs = data.split("+");
 
-    if(parametrs[0] == "a")
+    if(parametrs[0] == "auth" and parametrs.count() == 3)
     {
-        return "\r\n auth \r\n";
+       return authentication(parametrs[1], parametrs[2], connection_id);
     }
-    else if(parametrs[0] == "r")
+    else if(parametrs[0] == "reg" and parametrs.count() == 7)
     {
-        return "\r\n registr \r\n";
+       return registration(parametrs[1], parametrs[2], parametrs[3], parametrs[4], parametrs[5], parametrs[6]);
     }
     else if(parametrs[0] == "c")
     {
@@ -291,25 +315,12 @@ QString parsing(QString data, QString connection_id)
 
 
 
-
-
-
-
-
-
-
 /**
- * @brief isSelfDual
- * @param s
- * @return
- * Данная функция преобразует множество М1 в булеву функцию в виде строки.
- * Затем создается копия данной строки, переворачивается и все нули заменяются на единицы и наоборот.
- * На следующем шаге мы сравниваем строки.
- * При условии, что строки эквивалентны - возвращается true, в противном случае - false.
+ * @brief M1_to_f Данная функция преобразует множество М1 в булеву функцию в виде строки.
+ * @param s строка для множества M1
+ * @return возвращает функцию f
  */
-
-
-bool isSelfDual(std::string s) {
+string M1_to_f(string s){
     string delimiter = ",";
     string sub = "";
     int r_pos = s.rfind(",");
@@ -327,6 +338,23 @@ bool isSelfDual(std::string s) {
         s.erase(0, pos + delimiter.length());
     }
     M[stoi(s)]='1';
+    return M;
+}
+
+
+
+
+
+/**
+ * @brief isSelfDual  В данной функции на вход поступает строка. После этого создается копия данной строки, переворачивается и все нули заменяются на единицы и наоборот.
+ * На следующем шаге мы сравниваем строки.
+ * @param s строка, которая подаётся на вход и сразу же преобразовывается в множество M1.
+ * @return возвращает правду или ложь (является ли функция самодвойственной или нет)
+ */
+
+QString isSelfDual(QString qs) {
+    string s = qs.toStdString();
+    string M = M1_to_f(s);
     string M2 = M;
     reverse(M2.begin(), M2.end());
     for(int i=0;i<M2.size();i++){
@@ -336,33 +364,48 @@ bool isSelfDual(std::string s) {
             M2[i]='0';
     }
     if (M2==M)
-        return true;
+        return "true";
+
     else
-        return false;
+        return "false";
 }
 
-bool isMonotonic(const std::vector<int>& M1) {
-    int size = M1.size();
+/**
+ * @brief Dual функция, которая строит вектор значений двойственной функции.
+ * @param qs строка, которая подаётся на вход и сразу же преобразовывается в множество M1.
+ * @return возвращается вектор значений двойственной функции.
+ */
 
-    // Проверяем монотонность по возрастанию
-    bool isIncreasing = true;
-    for (int i = 1; i < size; i++) {
-        if (M1[i] < M1[i - 1]) {
-            isIncreasing = false;
-            break;
-        }
+QString Dual(QString qs) {
+    string s = qs.toStdString();
+    string M = M1_to_f(s);
+    string M2 = M;
+    reverse(M2.begin(), M2.end());
+    QString M3 = QString::fromStdString(M2);
+    return M3;
+}
+/**
+ * @brief isMonotonic функция, которая исследует функцию,  заданную множеством M1, на монотонность.
+ * @param qs строка, которая подаётся на вход и сразу же преобразовывается в множество M1.
+ * @return Возвращает правду или ложь.
+ */
+QString isMonotonic(QString qs) {
+    string s = qs.toStdString();
+    string M = M1_to_f(s);
+    QString sss = QString::fromStdString(M);
+    qDebug()<<sss;
+    bool flag_up = true;
+    for(int i=1;i<M.size();i++){
+        if (M[i-1]=='1' && M[i]=='0')
+            flag_up = false;
     }
-
-    // Проверяем монотонность по убыванию, только если функция не является монотонной по возрастанию
-    bool isDecreasing = true;
-    if (!isIncreasing) {
-        for (int i = 1; i < size; i++) {
-            if (M1[i] > M1[i - 1]) {
-                isDecreasing = false;
-                break;
-            }
-        }
+    bool flag_down = true;
+    for(int i=1;i<M.size();i++){
+        if (M[i-1]=='0' && M[i]=='1')
+            flag_down = false;
     }
-
-    return isIncreasing || isDecreasing;
+    if (flag_down || flag_up)
+        return "true";
+    else
+        return "false";
 }

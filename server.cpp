@@ -2,24 +2,11 @@
 #include "func.cpp"
 
 /**
- * @brief Server::Server
- * Здесь будет описание сервера
- *
- *
- *
- *
- * Тут будет что-то еще...
- *
- *
- *
- *
- *
- *
- * И еще что-то.
+ * @brief Server::Server конструктор для сервера.
  */
 
 Server::Server(){
-    if(this->listen(QHostAddress::Any,2323)){
+    if(this->listen(QHostAddress::Any,32323)){
         qDebug()<<"Start";
     }
     else{
@@ -27,6 +14,11 @@ Server::Server(){
     }
     nextBlockSize = 0;
 }
+/**
+ * @brief Server::incomingConnection конструктор для подключения клиента по вкусу.
+
+ * @param socketDescriptor сокет, по которому клиент подключается к серверу по сути.
+ */
 void Server::incomingConnection(qintptr socketDescriptor){
     socket = new QTcpSocket;
     socket->setSocketDescriptor(socketDescriptor);
@@ -37,21 +29,42 @@ void Server::incomingConnection(qintptr socketDescriptor){
     qDebug()<<"client connected"<<socketDescriptor;
 
 }
-
+/**
+ * @brief Server::slotsReadyRead Сервер готов читать.
+ */
 void Server::slotsReadyRead(){
     socket = (QTcpSocket*)sender();
     QDataStream in(socket);
+///////////////////////////////////////////
+    QByteArray arr;
+    QString str = "";
+    QString connection_id = QString::number(socket->socketDescriptor());
+    while(socket->bytesAvailable()>0)
+    {
+        arr = socket->readAll();
+        str+=arr;
+    }
+    QByteArray output = parsing(str, connection_id).toUtf8();
+    qDebug()<<str;
+    qDebug()<<output;
+    socket->write(str.toUtf8());
+/////////////////////////////////////////////////
+/*
     in.setVersion(QDataStream::Qt_DefaultCompiledVersion);
     if(in.status()==QDataStream::Ok){
         qDebug()<<"Read...";
+        /*
         QString str;
         in >> str;
         qDebug()<<str;
+
         //SendToClient(str);
         for(;;){
             QString str;
             QTime time;
-            in >>time >> str;
+            in >> str;
+
+            qDebug()<<str;
             if(nextBlockSize==0){
                 qDebug() << "nextBlockSize = 0";
                 if(socket->bytesAvailable()<2){
@@ -67,7 +80,7 @@ void Server::slotsReadyRead(){
             }
             //QString str;
             //QTime time;
-            in >>time >> str;
+            in >> str;
             nextBlockSize=0;
             qDebug() << str;
             if(Auth_admin(str)){
@@ -87,9 +100,13 @@ void Server::slotsReadyRead(){
     else{
         qDebug()<<"DataStream error";
     }
-}
+        */
 
+}
+/*
 void Server::SendToClient(QString str){
+    socket->write(str.toUtf8());
+
    /* Data.clear();
     QDataStream out(&Data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_DefaultCompiledVersion);
@@ -102,6 +119,7 @@ void Server::SendToClient(QString str){
         Sockets[i]->write(Data);
     }
     qDebug()<<"send__";
-    */
+
 //    Sockets[i]->write(str.toUtf8());
 }
+*/
