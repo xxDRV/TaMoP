@@ -6,22 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>392</width>
-    <height>230</height>
+    <width>552</width>
+    <height>356</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
-   <item row="2" column="0">
-    <widget class="QPushButton" name="pushButton">
-     <property name="text">
-      <string>Connect</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -52,16 +45,69 @@
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="email_lay">
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QLabel" name="email">
+        <widget class="QLabel" name="surname">
          <property name="text">
-          <string>Почта</string>
+          <string>Фамилия</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="email_2"/>
+        <widget class="QLineEdit" name="surname_2"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="firstname_lay">
+       <item>
+        <widget class="QLabel" name="firstname">
+         <property name="text">
+          <string>Имя</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="firstname_2"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_5">
+       <item>
+        <widget class="QLabel" name="second_name">
+         <property name="text">
+          <string>Отчество</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="second_name_2"/>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <widget class="QLabel" name="role">
+         <property name="text">
+          <string>Роль</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="student">
+         <property name="text">
+          <string>Ученик</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="teacher">
+         <property name="text">
+          <string>Учитель</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </item>
@@ -98,6 +144,13 @@
       </layout>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>Connect</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
