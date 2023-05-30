@@ -17,20 +17,20 @@ void testSinkovskiy::test_case1()
 void testSinkovskiy::test_case2()
 {
     QStringList params2 = 1,2,3,4;
-    (isSelfDual(params2),false)
+    QCOMPARE(isSelfDual(params2),false)
 }
 
 void testSinkovskiy::test_case3()
 {
     QStringList params3 = 0,1,2,3;
-    (isSelfDual(params3),true)
+    QCOMPARE(isSelfDual(params3),true)
 }
 
 
 void testSinkovskiy::test_case4()
 {
     QStringList params4 = 0,1,2,3,4,5,6,7;
-    (isSelfDual(params4),true)
+    QCOMPARE(isSelfDual(params4),true)
 }
 
 QTEST_MAIN(testSinkovskiy)
