@@ -3,11 +3,7 @@
 
 bool form_mode = false;
 
-/**
- * @brief AuthForm::AuthForm конструктор класса формы аутентификации.
- *
- * @param parent предок класса AuthForm.
- */
+
 AuthForm::AuthForm(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::AuthForm)
@@ -27,10 +23,6 @@ AuthForm::AuthForm(QWidget *parent) :
     ui->label->setVisible(false);
 
 }
-/**
- * @brief AuthForm::change_mode Функция, отвечающая за отображение элементов в форме аутентификации.
- * @param mode Режим отображения.
- */
 void AuthForm::change_mode(bool mode)
 {
     ui->surname->setVisible(mode);
@@ -51,10 +43,6 @@ void AuthForm::change_mode(bool mode)
     }
     //ui->label->setVisible(mode);
 }
-/**
- * @brief AuthForm::log_pass_error Функция, отвечающая за корректность введённых пароля и логина.
- * @param mode Режим отображения окошка об ошибке.
- */
 void AuthForm::log_pass_error(bool mode){
     ui->label->setVisible(mode);
 }
@@ -68,17 +56,21 @@ void AuthForm::log_pass_error(bool mode){
 
     }
 }*/
-/**
- * @brief AuthForm::~AuthForm деструктор AuthForm.
- */
+
 AuthForm::~AuthForm()
 {
     delete ui;
 }
+/*
+void change_form_main(){
+    AuthForm::transp();
+}
 
-/**
- * @brief AuthForm::on_reg_button_clicked слот, реагирующий на нажатие кнопки регистрации.
- */
+void AuthForm::transp(){
+    this->close();
+    emit onClosed(ui->login_2->text());
+}
+*/
 void AuthForm::on_reg_button_clicked()
 {
     /*
@@ -101,9 +93,12 @@ void AuthForm::on_reg_button_clicked()
     this->change_mode(true);
 
 }
-/**
- * @brief AuthForm::on_enter_button_clicked слот, реагирующий на нажатие кнопки входа.
- */
+
+QString AuthForm::get_log()
+{
+    return ui->login_2->text();
+}
+
 void AuthForm::on_enter_button_clicked()
 {
     /*
@@ -112,10 +107,14 @@ void AuthForm::on_enter_button_clicked()
           +"password+"+
               ui->password_2->text()+"+";
               */
-    if (ui->login_2->text() != nullptr && form_mode==false){
-        Client_hole::get_instance().SendToServer("auth+"+
+    if (ui->login_2->text() != nullptr && ui->password_2->text()!=nullptr && form_mode==false){
+
+        Client_hole::get_instance()->SendToServer("auth+"+
                      ui->login_2->text()+"+"+
                      ui->password_2->text());
+    }
+    else{
+        AuthForm::log_pass_error(true);
     }
     if (ui->login_2->text() != nullptr && form_mode==true){
         QString role;
@@ -124,33 +123,22 @@ void AuthForm::on_enter_button_clicked()
             role = "student";
         }
         else{
-            qDebug()<<"pizdec";
+
             role = "teacher";
         }
 
-        Client_hole::get_instance().SendToServer("reg+"+
+        Client_hole::get_instance()->SendToServer("reg+"+
                      ui->login_2->text()+"+"+
                      ui->password_2->text()+"+" + ui->firstname_2->text()+"+"+ui->surname_2->text()+"+"+ui->second_name_2->text()+"+"+role);
 
 
     }
 
-    /*
-    Client_hole hole;
-    hole.SendToServer("login&"+
-                      ui->login_2->text()+"&"
-                  +"password&"+
-                      ui->password_2->text()+"&");
-                      */
-    //this->parse();
-    //this->close();
-    //emit onClosed(ui->login_2->text());
+
 
 }
 
-/**
- * @brief AuthForm::on_exit_button_clicked слот, реагирующий на нажатие кнопки выхода.
- */
+
 void AuthForm::on_exit_button_clicked()
 {
     this->change_mode(false);
@@ -208,19 +196,14 @@ void AuthForm::on_exit_button_clicked()
         //ui->textBrowser->append("read error");
     }
 }*/
-/**
- * @brief AuthForm::on_pushButton_clicked слот, реагирующий на нажатие кнопки подключения.
- */
+
 void AuthForm::on_pushButton_clicked()
 {
     Client_hole::get_instance();
 }
 
 
-/**
- * @brief AuthForm::on_label_linkActivated  вывод сообщения об ошибке входа.
- * @param link параметр, в зависимости от которого появляется сообщение об ошибке входа.
- */
+
 void AuthForm::on_label_linkActivated(const QString &link)
 {
 
