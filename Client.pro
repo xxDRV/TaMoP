@@ -11,6 +11,8 @@ CONFIG += debug
 
 SOURCES += \
     authform.cpp \
+    check_error.cpp \
+    checking.cpp \
     client_hole.cpp \
     func_client.cpp \
     main.cpp \
@@ -19,6 +21,8 @@ SOURCES += \
 
 HEADERS += \
     authform.h \
+    check_error.h \
+    checking.h \
     client_hole.h \
     func_client.h \
     mainwindow.h \
@@ -26,6 +30,8 @@ HEADERS += \
 
 FORMS += \
     authform.ui \
+    check_error.ui \
+    checking.ui \
     mainwindow.ui \
     taskform.ui
 

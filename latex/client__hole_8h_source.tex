@@ -1,0 +1,72 @@
+\doxysection{client\+\_\+hole.\+h}
+\hypertarget{client__hole_8h_source}{}\label{client__hole_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CLIENT\_HOLE\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CLIENT\_HOLE\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include<QTcpSocket>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include<QTime>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include<QDataStream>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <QObject>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_client__hole}{Client\_hole}};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_client__hole__destroyer}{Client\_hole\_destroyer}}\{}
+\DoxyCodeLine{00013\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{class_client__hole}{Client\_hole}}\ *p\_instance;}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{class_client__hole__destroyer}{\string~Client\_hole\_destroyer}}();}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{void}\ initialize(\mbox{\hyperlink{class_client__hole}{Client\_hole}}\ *p);}
+\DoxyCodeLine{00018\ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_client__hole}{Client\_hole}}:\textcolor{keyword}{public}\ QObject}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_client__hole}{Client\_hole}}*\ p\_instance;}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_client__hole__destroyer}{Client\_hole\_destroyer}}\ destroyer;}
+\DoxyCodeLine{00030\ \ \ \ \ QTcpSocket*\ socket;}
+\DoxyCodeLine{00031\ \ \ \ \ qint16\ nextBlockSize;}
+\DoxyCodeLine{00032\ \ \ \ \ QByteArray\ Data;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_client__hole}{Client\_hole}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_client__hole}{Client\_hole}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_client__hole}{Client\_hole}}\&);}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{class_client__hole}{Client\_hole}}\&\ operator\ =(\mbox{\hyperlink{class_client__hole}{Client\_hole}}\ \&);}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{class_client__hole}{\string~Client\_hole}}()\{\}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_client__hole__destroyer}{Client\_hole\_destroyer}};}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//void\ connect();}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ SendToServer(QString\ str);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{class_client__hole}{Client\_hole}}\&\ get\_instance();}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ slotsReadyRead();}
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00052\ \textcolor{comment}{class\ Client:public\ QObject\{}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ \ \ \ \ \ Q\_OBJECT}}
+\DoxyCodeLine{00054\ \textcolor{comment}{private:}}
+\DoxyCodeLine{00055\ \textcolor{comment}{}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ \ QTcpSocket\ *socket;}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ qint16\ nextBlockSize;}}
+\DoxyCodeLine{00058\ \textcolor{comment}{public:}}
+\DoxyCodeLine{00059\ \textcolor{comment}{}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ void\ SendToServer(QString\ str);}}
+\DoxyCodeLine{00061\ \textcolor{comment}{public\ slots:}}
+\DoxyCodeLine{00062\ \textcolor{comment}{}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ void\ slotsReadyRead();}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\};}}
+\DoxyCodeLine{00065\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CLIENT\_HOLE\_H}}
+
+\end{DoxyCode}

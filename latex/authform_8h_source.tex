@@ -1,0 +1,57 @@
+\doxysection{authform.\+h}
+\hypertarget{authform_8h_source}{}\label{authform_8h_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ AUTHFORM\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ AUTHFORM\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <QWidget>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <QTcpSocket>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include<QTime>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include<QDataStream>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include"{}client\_hole.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }Ui\ \{}
+\DoxyCodeLine{00012\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_auth_form}{AuthForm}};}
+\DoxyCodeLine{00013\ \}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_auth_form}{AuthForm}}\ :\ \textcolor{keyword}{public}\ QWidget}
+\DoxyCodeLine{00016\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ Q\_OBJECT}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{class_auth_form}{AuthForm}}(QWidget\ *parent\ =\ \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{class_auth_form}{\string~AuthForm}}();}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{private}\ slots:}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_reg\_button\_clicked();}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_enter\_button\_clicked();}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_exit\_button\_clicked();}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_pushButton\_clicked();}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ on\_label\_linkActivated(\textcolor{keyword}{const}\ QString\ \&link);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00035\ \ \ \ \ Ui::AuthForm\ *ui;}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{bool}\ mode;}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ change\_mode(\textcolor{keywordtype}{bool}\ mode);}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ log\_pass\_error(\textcolor{keywordtype}{bool}\ mode);}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//void\ parse\_for\_client(QString\ srt);}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//void\ parse();}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//QTcpSocket\ *socket;}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//QByteArray\ Data;}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//void\ SendToServer(QString\ str);}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//qint16\ nextBlockSize;}}
+\DoxyCodeLine{00045\ signals:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordtype}{void}\ onClosed(QString\ log);}
+\DoxyCodeLine{00047\ \textcolor{keyword}{public}\ slots:}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{comment}{//void\ slotsReadyRead();}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ AUTHFORM\_H}}
+
+\end{DoxyCode}
