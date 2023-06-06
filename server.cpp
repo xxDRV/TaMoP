@@ -2,7 +2,20 @@
 #include "func.cpp"
 
 /**
- * @brief Server::Server конструктор для сервера.
+ * @brief Server::Server
+ * Здесь будет описание сервера
+ *
+ *
+ *
+ *
+ * Тут будет что-то еще...
+ *
+ *
+ *
+ *
+ *
+ *
+ * И еще что-то.
  */
 
 Server::Server(){
@@ -14,11 +27,6 @@ Server::Server(){
     }
     nextBlockSize = 0;
 }
-/**
- * @brief Server::incomingConnection конструктор для подключения клиента по вкусу.
-
- * @param socketDescriptor сокет, по которому клиент подключается к серверу по сути.
- */
 void Server::incomingConnection(qintptr socketDescriptor){
     socket = new QTcpSocket;
     socket->setSocketDescriptor(socketDescriptor);
@@ -29,9 +37,7 @@ void Server::incomingConnection(qintptr socketDescriptor){
     qDebug()<<"client connected"<<socketDescriptor;
 
 }
-/**
- * @brief Server::slotsReadyRead Сервер готов читать.
- */
+
 void Server::slotsReadyRead(){
     socket = (QTcpSocket*)sender();
     QDataStream in(socket);
@@ -47,7 +53,7 @@ void Server::slotsReadyRead(){
     QByteArray output = parsing(str, connection_id).toUtf8();
     qDebug()<<str;
     qDebug()<<output;
-    socket->write(str.toUtf8());
+    socket->write(output);
 /////////////////////////////////////////////////
 /*
     in.setVersion(QDataStream::Qt_DefaultCompiledVersion);

@@ -22,5 +22,4 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     db.h \
-    func.h \
     server.h

@@ -7,11 +7,8 @@
 #include <QSqlError>
 #include <QSqlRecord>
 
-
 class DataBase;
-/**
- * @brief The DataBaseDestroyer class класс для очистки базы данных.
- */
+
 class DataBaseDestroyer
 {
     private:
@@ -20,9 +17,7 @@ class DataBaseDestroyer
         ~DataBaseDestroyer() { delete instance; }
         void initialize(DataBase *link){ instance = link; }
 };
-/**
- * @brief The DataBase class класс для базы данных
- */
+
 class DataBase
 {
     private:
@@ -45,11 +40,6 @@ class DataBase
         ~DataBase() { DB.close(); }
         friend class DataBaseDestroyer;
     public:
-        /**
-         * @brief query_execute  функция, которая выполняет запросы.
-         * @param query_list список запросов.
-         * @return возвращает результат.
-         */
         QString query_execute(QList<QString> query_list)
         {
             QSqlQuery query(DB);
@@ -82,10 +72,7 @@ class DataBase
             }
             return result;
         }
-        /**
-         * @brief Connect подключение базы данных.
-         * @return возвращает базу данных.
-         */
+
         static DataBase *Connect(){
             if (!instance)
             {

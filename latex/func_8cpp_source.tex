@@ -1,0 +1,358 @@
+\doxysection{func.\+cpp}
+\hypertarget{func_8cpp_source}{}\label{func_8cpp_source}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include<QString>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include<iostream>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include<QTextStream>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}db.h"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include<string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include<cmath>}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ QString\ authentication(QString\ login,\ QString\ pass,\ QString\ connection\_id)}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ QList<QString>\ query\_list\ =\ \{\textcolor{stringliteral}{"{}SELECT\ *\ FROM\ Users\ WHERE\ login\ =\ :login\ and\ password\ =\ :password;"{}},}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:login"{}},\ login,}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:password"{}},\ pass}
+\DoxyCodeLine{00019\ \ \ \ \ \};}
+\DoxyCodeLine{00020\ \ \ \ \ QString\ response\ =\ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{if}\ (response\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}auth+wrong\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ connection\_id\ =\ :connection\_id\ WHERE\ login\ =\ :login;"{}},}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:login"{}},\ login,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}auth+ok\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00035\ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ QString\ registration(QString\ login,\ QString\ pass,\ QString\ name,\ QString\ last\_name,\ QString\ patronymic\_name,\ QString\ role)}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ QList<QString>\ query\_list\ =\ \{\textcolor{stringliteral}{"{}SELECT\ *\ FROM\ Users\ WHERE\ login\ =\ :login;"{}},}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:login"{}},\ login}
+\DoxyCodeLine{00042\ \ \ \ \ \};}
+\DoxyCodeLine{00043\ \ \ \ \ QString\ response\ =\ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{if}\ (response\ !=\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00046\ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}reg+already\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{if}\ (role\ ==\ \textcolor{stringliteral}{"{}student"{}})}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}INSERT\ INTO\ Users\ "{}}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}(login,\ password,\ name,\ last\_name,\ patronymic\_name,\ role,\ connection\_id,\ task1\_stat,\ task2\_stat,\ task3\_stat,\ task4\_stat,\ task5\_stat)"{}}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}\ VALUES\ (:login,\ :pass,\ :name,\ :last\_name,\ :patronymic\_name,\ 'student',\ NULL,\ 0,\ 0,\ 0,\ 0,\ 0);"{}},}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:login"{}},\ login,}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:pass"{}},\ pass,}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:name"{}},\ name,}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:last\_name"{}},\ last\_name,}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:patronymic\_name"{}},\ patronymic\_name,}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (role\ ==\ \textcolor{stringliteral}{"{}teacher"{}})}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}INSERT\ INTO\ Users\ "{}}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}(login,\ password,\ name,\ last\_name,\ patronymic\_name,\ role,\ connection\_id,\ task1\_stat,\ task2\_stat,\ task3\_stat,\ task4\_stat,\ task5\_stat)\ "{}}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}VALUES\ (:login,\ :pass,\ :name,\ :last\_name,\ :patronymic\_name,\ 'teacher',\ NULL,\ 0,\ 0,\ 0,\ 0,\ 0);"{}},}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:login"{}},\ login,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:pass"{}},\ pass,}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:name"{}},\ name,}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:last\_name"{}},\ last\_name,}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:patronymic\_name"{}},\ patronymic\_name,}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}SELECT\ *\ FROM\ Users\ WHERE\ login\ =\ :login;"{}},}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:login"{}},\ login}
+\DoxyCodeLine{00078\ \ \ \ \ \};}
+\DoxyCodeLine{00079\ \ \ \ \ response\ =\ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}\ (response\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00082\ \ \ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}reg+error\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}reg+ok\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00086\ \}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{bool}\ check\_answer(QString\ ans,\ \textcolor{keywordtype}{int}\ num)}
+\DoxyCodeLine{00089\ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ QString\ check\_task(QString\ connection\_id,\ QString\ task,\ QString\ ans)}
+\DoxyCodeLine{00094\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ QList<QString>\ query\_list\ =\ \{\textcolor{stringliteral}{"{}SELECT\ *\ FROM\ Users\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00097\ \ \ \ \ \};}
+\DoxyCodeLine{00098\ \ \ \ \ QString\ response\ =\ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{if}\ (response\ !=\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00101\ \ \ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task\ ==\ \textcolor{stringliteral}{"{}1"{}})}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_answer(ans,\ 1))}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task1\_stat\ =\ task1\_stat\ +\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task1\_stat\ =\ task1\_stat\ -\/\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task\ ==\ \textcolor{stringliteral}{"{}2"{}})}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_answer(ans,\ 2))}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task2\_stat\ =\ task2\_stat\ +\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task2\_stat\ =\ task2\_stat\ -\/\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task\ ==\ \textcolor{stringliteral}{"{}3"{}})}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_answer(ans,\ 3))}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task3\_stat\ =\ task3\_stat\ +\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task3\_stat\ =\ task3\_stat\ -\/\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task\ ==\ \textcolor{stringliteral}{"{}4"{}})}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_answer(ans,\ 4))}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task4\_stat\ =\ task4\_stat\ +\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task4\_stat\ =\ task4\_stat\ -\/\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (task\ ==\ \textcolor{stringliteral}{"{}5"{}})}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_answer(ans,\ 5))}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task5\_stat\ =\ task5\_stat\ +\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ task5\_stat\ =\ task5\_stat\ -\/\ 1\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}check+ok\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}chek+autherr\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00190\ \}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ QString\ get\_stat(QString\ connection\_id)}
+\DoxyCodeLine{00193\ \{}
+\DoxyCodeLine{00194\ \ \ \ \ QList<QString>\ query\_list\ =\ \{\textcolor{stringliteral}{"{}SELECT\ role\ FROM\ Users\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00196\ \ \ \ \ \};}
+\DoxyCodeLine{00197\ \ \ \ \ QString\ role\ =\ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ QString\ response\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordflow}{if}\ (role\ ==\ \textcolor{stringliteral}{"{}student;"{}})}
+\DoxyCodeLine{00202\ \ \ \ \ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ QList<QString>\ query\_list\ =\ \{\textcolor{stringliteral}{"{}SELECT\ task1\_stat,\ task2\_stat,\ task3\_stat,\ task4\_stat,\ task5\_stat\ FROM\ Users\ "{}}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ response\ =\ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (role\ ==\ \textcolor{stringliteral}{"{}teacher;"{}})}
+\DoxyCodeLine{00211\ \ \ \ \ \{}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ QList<QString>\ query\_list\ =\ \{\textcolor{stringliteral}{"{}SELECT\ name,\ last\_name,\ patronymic\_name,\ task1\_stat,\ task2\_stat,\ task3\_stat,\ task4\_stat,\ task5\_stat\ FROM\ Users\ "{}}}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}WHERE\ role\ =\ 'student';"{}}\};}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ response\ =\ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00216\ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}stat+autherr\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00218\ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{keywordtype}{void}\ close\_session(QString\ connection\_id)}
+\DoxyCodeLine{00221\ \{}
+\DoxyCodeLine{00222\ \ \ \ \ QList<QString>\ query\_list\ =\ \{\textcolor{stringliteral}{"{}UPDATE\ Users\ SET\ connection\_id\ =\ NULL\ WHERE\ connection\_id\ =\ :connection\_id;"{}},}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}:connection\_id"{}},\ connection\_id}
+\DoxyCodeLine{00224\ \ \ \ \ \};}
+\DoxyCodeLine{00225\ \ \ \ \ DataBase::Connect()-\/>query\_execute(query\_list);}
+\DoxyCodeLine{00226\ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ QString\ parsing(QString\ data,\ QString\ connection\_id)}
+\DoxyCodeLine{00229\ \{}
+\DoxyCodeLine{00230\ \ \ \ \ QList<QString>\ parametrs\ =\ data.split(\textcolor{stringliteral}{"{}+"{}});}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{if}(parametrs[0]\ ==\ \textcolor{stringliteral}{"{}auth"{}}\ and\ parametrs.count()\ ==\ 3)}
+\DoxyCodeLine{00233\ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ authentication(parametrs[1],\ parametrs[2],\ connection\_id);}
+\DoxyCodeLine{00235\ \ \ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(parametrs[0]\ ==\ \textcolor{stringliteral}{"{}reg"{}}\ and\ parametrs.count()\ ==\ 7)}
+\DoxyCodeLine{00237\ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ registration(parametrs[1],\ parametrs[2],\ parametrs[3],\ parametrs[4],\ parametrs[5],\ parametrs[6]);}
+\DoxyCodeLine{00239\ \ \ \ \ \}}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(parametrs[0]\ ==\ \textcolor{stringliteral}{"{}c"{}})}
+\DoxyCodeLine{00241\ \ \ \ \ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n\ check\ \(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00243\ \ \ \ \ \}}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(parametrs[0]\ ==\ \textcolor{stringliteral}{"{}s"{}})}
+\DoxyCodeLine{00245\ \ \ \ \ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n\ start\ \(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00247\ \ \ \ \ \}}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(parametrs[0]\ ==\ \textcolor{stringliteral}{"{}l"{}})}
+\DoxyCodeLine{00249\ \ \ \ \ \{}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n\ logout\ \(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00251\ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Error\ data\ parsing\(\backslash\)r\(\backslash\)n"{}};}
+\DoxyCodeLine{00254\ \ \ \ \ \}}
+\DoxyCodeLine{00255\ \}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ }
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ }
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ }
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ \textcolor{keywordtype}{string}\ M1\_to\_f(\textcolor{keywordtype}{string}\ s)\{}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordtype}{string}\ delimiter\ =\ \textcolor{stringliteral}{"{},"{}};}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordtype}{string}\ sub\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{keywordtype}{int}\ r\_pos\ =\ s.rfind(\textcolor{stringliteral}{"{},"{}});}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =r\_pos+1;i<s.size();i++)\{}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ sub+=s[i];}
+\DoxyCodeLine{00287\ \ \ \ \ \}}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordtype}{int}\ step\ =\ pow(2,\ ceil(log(stoi(sub))/log(2)));}
+\DoxyCodeLine{00289\ \ \ \ \ \textcolor{keywordtype}{string}\ M(step,\textcolor{charliteral}{'0'});}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{comment}{//cout<<M<<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ pos\ =\ 0;}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordtype}{string}\ token;}
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{while}\ ((pos\ =\ s.find(delimiter))\ !=\ string::npos)\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ token\ =\ s.substr(0,\ pos);}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ M[stoi(token)]=\textcolor{charliteral}{'1'};}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ s.erase(0,\ pos\ +\ delimiter.length());}
+\DoxyCodeLine{00297\ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \ \ M[stoi(s)]=\textcolor{charliteral}{'1'};}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{return}\ M;}
+\DoxyCodeLine{00300\ \}}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00302\ }
+\DoxyCodeLine{00303\ }
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00317\ QString\ isSelfDual(QString\ qs)\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{keywordtype}{string}\ s\ =\ qs.toStdString();}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordtype}{string}\ M\ =\ M1\_to\_f(s);}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{keywordtype}{string}\ M2\ =\ M;}
+\DoxyCodeLine{00321\ \ \ \ \ reverse(M2.begin(),\ M2.end());}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<M2.size();i++)\{}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (M2[i]==\textcolor{charliteral}{'0'})}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ M2[i]=\textcolor{charliteral}{'1'};}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ M2[i]=\textcolor{charliteral}{'0'};}
+\DoxyCodeLine{00327\ \ \ \ \ \}}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordflow}{if}\ (M2==M)}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}true"{}};}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}false"{}};}
+\DoxyCodeLine{00333\ \}}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ QString\ Dual(QString\ qs)\ \{}
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keywordtype}{string}\ s\ =\ qs.toStdString();}
+\DoxyCodeLine{00338\ \ \ \ \ \textcolor{keywordtype}{string}\ M\ =\ M1\_to\_f(s);}
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordtype}{string}\ M2\ =\ M;}
+\DoxyCodeLine{00340\ \ \ \ \ reverse(M2.begin(),\ M2.end());}
+\DoxyCodeLine{00341\ \ \ \ \ QString\ M3\ =\ QString::fromStdString(M2);}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordflow}{return}\ M3;}
+\DoxyCodeLine{00343\ \}}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ QString\ isMonotonic(QString\ qs)\ \{}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordtype}{string}\ s\ =\ qs.toStdString();}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordtype}{string}\ M\ =\ M1\_to\_f(s);}
+\DoxyCodeLine{00348\ \ \ \ \ QString\ sss\ =\ QString::fromStdString(M);}
+\DoxyCodeLine{00349\ \ \ \ \ qDebug()<<sss;}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordtype}{bool}\ flag\_up\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00351\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=1;i<M.size();i++)\{}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (M[i-\/1]==\textcolor{charliteral}{'1'}\ \&\&\ M[i]==\textcolor{charliteral}{'0'})}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ flag\_up\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00354\ \ \ \ \ \}}
+\DoxyCodeLine{00355\ \ \ \ \ \textcolor{keywordtype}{bool}\ flag\_down\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=1;i<M.size();i++)\{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (M[i-\/1]==\textcolor{charliteral}{'0'}\ \&\&\ M[i]==\textcolor{charliteral}{'1'})}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ flag\_down\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00359\ \ \ \ \ \}}
+\DoxyCodeLine{00360\ \ \ \ \ \textcolor{keywordflow}{if}\ (flag\_down\ ||\ flag\_up)}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}true"{}};}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}false"{}};}
+\DoxyCodeLine{00364\ \}}
+
+\end{DoxyCode}
